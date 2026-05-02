@@ -6,9 +6,13 @@ const AdminBookings = () => import("@/views/admin/AdminBookings.vue");
 const AdminSpaces = () => import("@/views/admin/AdminSpaces.vue");
 const AdminHistory = () => import("@/views/admin/AdminHistory.vue");
 const AdminRegister = () => import("@/views/admin/AdminRegister.vue");
+const AdminInvitations = () => import("@/views/admin/AdminInvitations.vue");
+const AdminAccountRequests = () => import("@/views/admin/AdminAccountRequests.vue");
 const UserBookings = () => import("@/views/user/UserBookings.vue");
 const UserBook = () => import("@/views/user/UserBook.vue");
 const UserArchive = () => import("@/views/user/UserArchive.vue");
+const InvitationRegisterView = () => import("@/views/InvitationRegisterView.vue");
+const AccountRequestView = () => import("@/views/AccountRequestView.vue");
 const NotFoundView = () => import("@/views/NotFoundView.vue");
 
 const router = createRouter({
@@ -24,6 +28,18 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: LoginView,
+            meta: {guest: true}
+        },
+        {
+            path: '/account-request',
+            name: 'account-request',
+            component: AccountRequestView,
+            meta: {guest: true}
+        },
+        {
+            path: '/register/invitation/:token',
+            name: 'invitation-register',
+            component: InvitationRegisterView,
             meta: {guest: true}
         },
         {
@@ -48,6 +64,18 @@ const router = createRouter({
             path: '/admin/register',
             name: 'admin-register',
             component: AdminRegister,
+            meta: {requireAuth: true, role: 'admin'}
+        },
+        {
+            path: '/admin/invitations',
+            name: 'admin-invitations',
+            component: AdminInvitations,
+            meta: {requireAuth: true, role: 'admin'}
+        },
+        {
+            path: '/admin/account-requests',
+            name: 'admin-account-requests',
+            component: AdminAccountRequests,
             meta: {requireAuth: true, role: 'admin'}
         },
         {

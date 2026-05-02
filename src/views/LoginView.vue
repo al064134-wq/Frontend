@@ -88,6 +88,11 @@ const googleLogin = async (token) => {
                 </form>
                 <GoogleLoginButton class="mt-4"
                     @success='googleLogin' />
+                <RouterLink
+                    :to="{ name: 'account-request' }"
+                    class="block mt-4 text-center text-sky-700 font-semibold hover:text-sky-500">
+                    Mandar petición de cuenta
+                </RouterLink>
             </div>
 
             <!-- Engineering Faculty logo & Description -->
