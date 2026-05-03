@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { API_BASE_URL } from '@/utils/apiBase';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE
 const router = useRouter()
 const error = ref('')
 const success = ref(false)
