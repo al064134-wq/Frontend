@@ -7,8 +7,21 @@ const invitations = ref([])
 const generatedUrl = ref('')
 const message = ref('')
 
+const getPublicInvitationUrl = (url) => {
+    try {
+        const invitationUrl = new URL(url, window.location.origin)
+        return `${window.location.origin}${invitationUrl.pathname}${invitationUrl.search}${invitationUrl.hash}`
+    } catch {
+        return url
+    }
+}
+
 const fetchInvitations = async () => {
-    invitations.value = await fetchData('invitations/pending', 'GET')
+    const pendingInvitations = await fetchData('invitations/pending', 'GET')
+    invitations.value = pendingInvitations.map((invitation) => ({
+        ...invitation,
+        url: getPublicInvitationUrl(invitation.url)
+    }))
 }
 
 const createInvitation = async () => {
@@ -16,7 +29,7 @@ const createInvitation = async () => {
     generatedUrl.value = ''
     try {
         const response = await fetchData('invitations', 'POST', { role_id: 2 })
-        generatedUrl.value = response.url
+        generatedUrl.value = getPublicInvitationUrl(response.url)
     } catch (error) {
         if (error.code == 409) {
             message.value = error.message
